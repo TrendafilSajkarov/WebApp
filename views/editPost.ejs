@@ -1,0 +1,23 @@
+<% include ./includes/header.ejs %>
+
+<form action="/app/post/<%= post._id %>?_method=PUT" method="post">
+    <label for="title">Title</label>
+    <br>
+    <input id="title" type="text" name="title" value="<%= post.title %>">
+    <br>
+    <label for="imageUrl">Image</label>
+    <br>
+    <input id="imageUrl" type="text" name="imageUrl" value="<%= post.imageUrl %>">
+    <br>
+    <label for="content">Content</label>
+    <br>
+    <textarea name="content" id="content" cols="50" rows="10"><%= post.content %></textarea>
+    <br>
+    <button type="submit">Edit Post</button>    
+    <button>
+        <a href="/app/post/<%= post._id %>">Go Back</a>
+    </button>
+
+</form>
+
+<% include ./includes/footer.ejs %>

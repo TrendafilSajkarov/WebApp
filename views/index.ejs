@@ -1,0 +1,15 @@
+<% include ./includes/header.ejs %>
+    <button>
+        <a href="/app/post/new">Add New Post</a>
+    </button>
+    <% posts.forEach((post) => { %>
+        <div>
+            <h3><%= post.title %></h3>        
+            <img src="<%= post.imageUrl %>" alt="<%= post.title %>">
+            <br>
+            <small><%= post.date %></small>
+            <p><%= post.content %></p>
+            <a href="/app/post/<%= post._id %>">Read More...</a>
+        </div>
+    <% }); %>
+<% include ./includes/footer.ejs %>

@@ -1,0 +1,23 @@
+<% include ./includes/header.ejs %>
+
+<form action="/app/post" method="post">
+    <label for="title">Title</label>
+    <br>
+    <input id="title" type="text" name="title" placeholder="Enter Title">
+    <br>
+    <label for="imageUrl">Image</label>
+    <br>
+    <input id="imageUrl" type="text" name="imageUrl" placeholder="Enter Image URL">
+    <br>
+    <label for="content">Content</label>
+    <br>
+    <textarea name="content" id="content" cols="50" rows="10"></textarea>
+    <br>
+    <button type="submit">Add Post</button>
+    <button>
+        <a href="/">Go Back</a>
+    </button>
+
+</form>
+
+<% include ./includes/footer.ejs %>

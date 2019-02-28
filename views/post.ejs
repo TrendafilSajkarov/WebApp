@@ -1,0 +1,14 @@
+<% include ./includes/header.ejs %>
+
+    <h1><%= post.title %></h1>
+    <img src="<%= post.imageUrl %>" alt="<%= post.title %>">
+    <small><%= post.date %></small>
+    <p><%= post.content %></p>
+    <button>
+        <a href="/app/post/<%= post._id %>/edit">Edit</a>
+    </button>
+    <form action="/app/post/<%= post._id %>?_method=DELETE" method="post">
+        <button type="submit">Delete Post</button>
+    </form>
+
+<% include ./includes/footer.ejs %>
