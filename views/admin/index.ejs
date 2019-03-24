@@ -1,0 +1,19 @@
+<%- include('../includes/header.ejs') %>
+<ul>
+<% categories.forEach(category => { %>
+    <li>
+        <a href="/app/admin/<%= category._id %>"><%= category.name %></a>
+    </li>        
+<% }); %> 
+</ul>
+
+<form action="/app/admin/category/new" method="post">
+    <label for="newCategory">Add New Category</label>
+    <br>
+    <input id="newCategory" type="text" name="category" placeholder="Enter Name for New Category">
+    <button type="submit">Submit Category</button>
+</form>
+
+
+
+<%- include('../includes/footer.ejs') %>

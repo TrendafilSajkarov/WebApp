@@ -1,0 +1,32 @@
+<%- include('../includes/header.ejs') %>
+<a href="/app/admin">GO BACK</a>
+
+    <h1><%= category.name %></h1>
+
+    <form action="/app/admin/<%= category._id %>?_method=PUT" method="post">
+        <input type="text" name="newCategoryName" value="<%= category.name %>">
+        <button type="submit">Change Category Name</button>
+    </form>
+
+    <form action="/app/admin/<%= category._id %>?_method=DELETE" method="post">
+        <button type="submit">Delete Category</button>
+    </form>
+    <hr>
+    <ul>
+    <% category.subcategory.forEach(subCategory => { %>
+        <li>
+            <a href="/app/admin/<%= category._id %>/<%= subCategory._id %>"><%= subCategory.name %></a>
+        </li>       
+    <% }); %> 
+    </ul>
+    
+
+    <form action="/app/admin/<%= category._id %>/subcategory/new" method="post">
+        <label for="newSubcategory">Add New Subcategory</label>
+        <br>
+        <input id="newSubcategory" type="text" name="subcategory" placeholder="Enter Name for New Subcategory">
+        <button type="submit">Submit Subcategory</button>
+    </form>
+
+
+<%- include('../includes/footer.ejs') %>

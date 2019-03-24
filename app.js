@@ -15,9 +15,9 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const appRoutes = require("../WebAppNew/routes/appRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
-app.use('/app', appRoutes);
+app.use('/app/admin', adminRoutes);
 
 
 app.get("/", (req, res, next) => {
@@ -34,7 +34,7 @@ mongoose
     { useNewUrlParser: true })
   .then(result => {
     app.listen(3000, (req, res) => {
-      console.log("Server started!");
+      console.log("Connected to database and Server started");
     });
   })
   .catch(err => {

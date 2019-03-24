@@ -1,0 +1,19 @@
+<%- include('../includes/header.ejs') %>
+
+
+<h1>Edit Post Form</h1>
+<form action="/app/admin/<%= categoryID %>/<%= subcategoryID %>/<%= post._id %>?_method=PUT" method="post">
+    <input type="text" name="title" id="title" value="<%= post.title %>">
+    <label for="title">Edit Title</label>
+    <br>
+    <input type="text" name="imageURL" id="imageURL" value="<%= post.imageURL %>">
+    <label for="imageURL">Edit image URL</label>
+    <br>
+    <textarea name="content" id="content" cols="30" rows="10"><%= post.content %></textarea>
+    <label for="content">Edit Post content</label>
+    <br>
+    <button type="submit">Edit Post</button>
+</form>
+
+
+<%- include('../includes/footer.ejs') %>

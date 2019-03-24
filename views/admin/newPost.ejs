@@ -1,0 +1,18 @@
+<%- include('../includes/header.ejs') %>
+
+<h1>New Post Form</h1>
+<form action="/app/admin/<%= category %>/<%= subcategory %>/newpost" method="post">
+    <input type="text" name="title" id="title" placeholder="Title">
+    <label for="title">Enter Title</label>
+    <br>
+    <input type="text" name="imageURL" id="imageURL" placeholder="image URL">
+    <label for="imageURL">Enter image URL</label>
+    <br>
+    <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    <label for="content">Enter Post content</label>
+    <br>
+    <button type="submit">Submit New Post</button>
+</form>
+
+
+<%- include('../includes/footer.ejs') %>

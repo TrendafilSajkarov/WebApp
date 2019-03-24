@@ -1,0 +1,17 @@
+<%- include('../includes/header.ejs') %>
+
+<a href="/app/admin/<%= categoryID %>/<%= subcategoryID %>">GO BACK</a>
+
+<h1><%= post.title %></h1>
+
+<img src="<%= post.imageURL %>" alt="">
+<p>Created at: <%= post.date %></p>
+
+<p><%= post.content %></p>
+
+<a href="/app/admin/<%= categoryID %>/<%= subcategoryID %>/<%= post._id %>/edit"><button>Edit Post</button></a> 
+<form action="/app/admin/<%= categoryID %>/<%= subcategoryID %>/<%= post._id %>?_method=DELETE" method="post">
+    <button>Delete Post</button>
+</form>
+
+<%- include('../includes/footer.ejs') %>
