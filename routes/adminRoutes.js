@@ -30,25 +30,25 @@ router.delete("/:categoryID/:postID", adminController.deleteCatPost);
 
 router.post("/:categoryID/subcategory/new", adminController.postAddSubcategory);
 
-router.get("/:categoryID/:subcategoryID", adminController.getOneSubcategory);
+router.get("/:categoryID/subcategory/:subcategoryID", adminController.getOneSubcategory);
 
-router.put("/:categoryID/:subcategoryID", adminController.editSubcategory);
+router.put("/:categoryID/subcategory/:subcategoryID", adminController.editSubcategory);
 
-router.delete("/:categoryID/:subcategoryID", adminController.deleteSubcategory);
+router.delete("/:categoryID/subcategory/:subcategoryID", adminController.deleteSubcategory);
 
 //  - Subcategory Posts Routes
 
-router.get("/:categoryID/:subcategoryID/newpost", adminController.getNewPostForm);
+router.get("/:categoryID/subcategory/:subcategoryID/newpost", adminController.getNewPostForm);
 
-router.post("/:categoryID/:subcategoryID/newpost", adminController.postNewPost);
+router.post("/:categoryID/subcategory/:subcategoryID/newpost", adminController.postNewPost);
 
-router.get("/:categoryID/:subcategoryID/:postID", adminController.getSinglePost);
+router.get("/:categoryID/subcategory/:subcategoryID/:postID", adminController.getSinglePost);
 
-router.get("/:categoryID/:subcategoryID/:postID/edit", adminController.getEditPostForm);
+router.get("/:categoryID/subcategory/:subcategoryID/:postID/edit", adminController.getEditPostForm);
 
-router.put("/:categoryID/:subcategoryID/:postID", adminController.editPost);
+router.put("/:categoryID/subcategory/:subcategoryID/:postID", adminController.editPost);
 
-router.delete("/:categoryID/:subcategoryID/:postID", adminController.deletePost);
+router.delete("/:categoryID/subcategory/:subcategoryID/:postID", adminController.deletePost);
 
 
-module.exports = router
+module.exports = router 

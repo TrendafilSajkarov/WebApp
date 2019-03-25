@@ -1,6 +1,6 @@
 <%- include('../includes/header.ejs') %>
 
-<a href="/app/admin/<%= categoryID %>">GO BACK</a>
+<a href="/app/admin/<%= categoryID %>/<%= postID %>">GO BACK</a>
 
 <h1>Edit Post Form</h1>
 <form action="/app/admin/<%= categoryID %>/<%= post._id %>?_method=PUT" method="post">

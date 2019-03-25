@@ -16,7 +16,7 @@
     <ul>
     <% category.subcategory.forEach(subCategory => { %>
         <li>
-            <a href="/app/admin/<%= category._id %>/<%= subCategory._id %>"><%= subCategory.name %></a>
+            <a href="/app/admin/<%= category._id %>/subcategory/<%= subCategory._id %>"><%= subCategory.name %></a>
         </li>       
     <% }); %> 
     </ul>
@@ -39,7 +39,6 @@
         <img src="<%= post.imageURL %>" alt="">    
         <p><%= post.content %></p>
         <a href="/app/admin/<%= category._id %>/<%= post._id %>"><button>Read More</button></a>
-    <% }) %>
- <p><%= category %></p>       
+    <% }) %>     
 
 <%- include('../includes/footer.ejs') %>

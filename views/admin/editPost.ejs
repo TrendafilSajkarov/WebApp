@@ -2,7 +2,7 @@
 
 
 <h1>Edit Post Form</h1>
-<form action="/app/admin/<%= categoryID %>/<%= subcategoryID %>/<%= post._id %>?_method=PUT" method="post">
+<form action="/app/admin/<%= categoryID %>/subcategory/<%= subcategoryID %>/<%= post._id %>?_method=PUT" method="post">
     <input type="text" name="title" id="title" value="<%= post.title %>">
     <label for="title">Edit Title</label>
     <br>

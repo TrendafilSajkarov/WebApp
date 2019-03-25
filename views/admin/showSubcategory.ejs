@@ -4,26 +4,26 @@
 
 <h1><%= subcategory.name %></h1>
 
-<form action="/app/admin/<%= category %>/<%= subcategory._id %>?_method=PUT" method="post">
+<form action="/app/admin/<%= category %>/subcategory/<%= subcategory._id %>?_method=PUT" method="post">
     <label for="subCategoryName">Change Subcategory Name</label>
     <input id="subCategoryName" type="text" name="newSubcategoryName" value="<%= subcategory.name %>">
     <button type="submit">Submit New Subcategory Name</button>
 </form>
 
-<form action="/app/admin/<%= category %>/<%= subcategory._id %>?_method=DELETE" method="post">
+<form action="/app/admin/<%= category %>/subcategory/<%= subcategory._id %>?_method=DELETE" method="post">
     <button type="submit">DELETE this Subcategory</button>
 </form>
 <br>
 <br>
 
-<a href="/app/admin/<%= category %>/<%= subcategory._id %>/newpost"><button>Add New Post</button></a>
+<a href="/app/admin/<%= category %>/subcategory/<%= subcategory._id %>/newpost"><button>Add New Post</button></a>
 
 <% subcategory.posts.forEach(function(post){ %>
     <h3><%= post.title %></h3>
     <p>Created at: <%= post.date %></p>
     <img src="<%= post.imageURL %>" alt="">    
     <p><%= post.content %></p>
-    <a href="/app/admin/<%= category %>/<%= subcategory._id %>/<%= post._id %>"><button>Read More</button></a>
+    <a href="/app/admin/<%= category %>/subcategory/<%= subcategory._id %>/<%= post._id %>"><button>Read More</button></a>
 
 <% }) %>
 

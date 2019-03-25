@@ -1,6 +1,6 @@
 <%- include('../includes/header.ejs') %>
 
-<a href="/app/admin/<%= categoryID %>/<%= subcategoryID %>">GO BACK</a>
+<a href="/app/admin/<%= categoryID %>/subcategory/<%= subcategoryID %>">GO BACK</a>
 
 <h1><%= post.title %></h1>
 
@@ -9,8 +9,8 @@
 
 <p><%= post.content %></p>
 
-<a href="/app/admin/<%= categoryID %>/<%= subcategoryID %>/<%= post._id %>/edit"><button>Edit Post</button></a> 
-<form action="/app/admin/<%= categoryID %>/<%= subcategoryID %>/<%= post._id %>?_method=DELETE" method="post">
+<a href="/app/admin/<%= categoryID %>/subcategory/<%= subcategoryID %>/<%= post._id %>/edit"><button>Edit Post</button></a> 
+<form action="/app/admin/<%= categoryID %>/subcategory/<%= subcategoryID %>/<%= post._id %>?_method=DELETE" method="post">
     <button>Delete Post</button>
 </form>
 

@@ -66,7 +66,12 @@ exports.deleteCategory = (req, res, next) => {
         if(err){
           console.log(err);
         }
-        res.redirect("/app/admin");
+        Post.deleteMany({ _id: { $in: result.posts } }, (err) => {
+          if(err){
+            console.log(err);
+          }
+          res.redirect("/app/admin");
+        })
       })
     })
   })
@@ -169,7 +174,7 @@ exports.postNewPost = (req, res, next) => {
     .then(category => {
       category.subcategoryPosts.push(post);
       category.save();
-      res.redirect("/app/admin/" + categoryID + "/" + subcategoryID);
+      res.redirect("/app/admin/" + categoryID + "/subcategory/" + subcategoryID);
     })
     .catch(err => console.log(err));
 }
@@ -202,10 +207,11 @@ exports.getEditPostForm = (req, res, next) => {
 exports.editPost = (req, res, next) => {
   const categoryID = req.params.categoryID;
   const subcategoryID = req.params.subcategoryID;
+  const postID = req.params.postID
   Post
     .findByIdAndUpdate(req.params.postID, req.body, { new: true })
     .then(result => {
-      res.redirect("/app/admin/" + categoryID + "/" + subcategoryID);
+      res.redirect("/app/admin/" + categoryID + "/subcategory/" + subcategoryID + "/" + postID);
     })
     .catch(err => console.log(err))
 }
@@ -230,7 +236,7 @@ exports.deletePost = (req, res, next) => {
                   if (err) {
                     console.log(err)
                   }
-                  res.redirect("/app/admin/" + req.params.categoryID + "/" + req.params.subcategoryID);
+                  res.redirect("/app/admin/" + req.params.categoryID + "/subcategory/" + req.params.subcategoryID);
                 })
           })
     })
@@ -274,7 +280,11 @@ exports.getSingleCatPost = (req, res, next) => {
 exports.getEditCatPostForm = (req, res, next) => {
   Post  
     .findById(req.params.postID)
-    .then(result => res.render("admin/editCatPost", {post: result, categoryID: req.params.categoryID}))
+    .then(result => res.render("admin/editCatPost", {
+      post: result,
+      categoryID: req.params.categoryID, 
+      postID: req.params.postID
+    }))
 }
 
 exports.editCatPost = (req, res, next) => {
