@@ -1,6 +1,7 @@
 <%- include('../includes/header.ejs') %>
 <a href="/app/admin">GO BACK</a>
 
+
     <h1><%= category.name %></h1>
 
     <form action="/app/admin/<%= category._id %>?_method=PUT" method="post">
@@ -27,6 +28,18 @@
         <input id="newSubcategory" type="text" name="subcategory" placeholder="Enter Name for New Subcategory">
         <button type="submit">Submit Subcategory</button>
     </form>
+<hr>
+    <br>
+    <a href="/app/admin/<%= category._id %>/newpost"><button>Add New Post</button></a>
+    <br>
 
+    <% category.posts.forEach(function(post){ %>
+        <h3><%= post.title %></h3>
+        <p>Created at: <%= post.date %></p>
+        <img src="<%= post.imageURL %>" alt="">    
+        <p><%= post.content %></p>
+        <a href="/app/admin/<%= category._id %>/<%= post._id %>"><button>Read More</button></a>
+    <% }) %>
+ <p><%= category %></p>       
 
 <%- include('../includes/footer.ejs') %>
