@@ -1,81 +1,7 @@
-const Post = require("../models/post")
-const Subcategory = require("../models/subcategory");
-const Category = require("../models/category");
+const Post = require("../../models/post")
+const Subcategory = require("../../models/subcategory");
+const Category = require("../../models/category");
 
-exports.getAddCategory = (req, res, next) => {
-  Category
-    .find()
-    .then(result => {
-      res.render("./admin/index", {categories: result});
-    })
-    .catch(err => console.log(err));  
-}
-
-exports.postAddCategory = (req, res, next) => {
-  const catName = req.body.category;
-  if(catName.trim() == ""){
-    console.log("Category can't be blanc");
-  } else {
-    const category = new Category({
-      name: req.body.category
-    })
-    category
-      .save()
-      .then(result => {
-        res.redirect("/app/admin");
-      })
-      .catch(err => console.log(err));
-  }
-}
-
-exports.getOneCategory = (req, res, next) => {
-  Category
-    .findById(req.params.categoryID)
-    .populate([{
-      path: "subcategory",
-      model: "Subcategory"
-    }, {
-      path: "posts",
-      model: "Post"
-    }])
-    .exec()
-    .then(result => {
-      res.render("./admin/showCategory", {category: result})
-    })
-    .catch(err => console.log(err));
-}
-
-exports.editCategory = (req, res, next) => {
-  const newName = req.body.newCategoryName
-  Category
-    .findByIdAndUpdate(req.params.categoryID, {name: newName}, {new: true})
-    .then(result => res.redirect("/app/admin"))
-    .catch(err => console.log(err));
-}
-
-exports.deleteCategory = (req, res, next) => {
-  Category.findByIdAndRemove(req.params.categoryID, (err, result) => {
-    if (err) {
-      console.log(err)
-    }
-    Subcategory.deleteMany({ _id: { $in: result.subcategory } }, (err) => {
-      if (err) {
-        console.log(err)
-      }
-      Post.deleteMany({ _id: { $in: result.subcategoryPosts } }, (err) => {
-        if(err){
-          console.log(err);
-        }
-        Post.deleteMany({ _id: { $in: result.posts } }, (err) => {
-          if(err){
-            console.log(err);
-          }
-          res.redirect("/app/admin");
-        })
-      })
-    })
-  })
-}
 
 // Subcategories Routes Controllers
 
@@ -83,7 +9,6 @@ exports.postAddSubcategory = (req, res, next) => {
   const subcategory = new Subcategory({
     name: req.body.subcategory
   })
-  console.log(req.params.categoryID)
   Category
     .findById(req.params.categoryID)
     .then(category => {
@@ -94,7 +19,7 @@ exports.postAddSubcategory = (req, res, next) => {
     })
     .catch(err => console.log(err));
 }
- 
+
 exports.getOneSubcategory = (req, res, next) => {
   Subcategory
     .findById(req.params.subcategoryID).populate("posts")
@@ -112,7 +37,7 @@ exports.editSubcategory = (req, res, next) => {
   const category = req.params.categoryID
   const newName = req.body.newSubcategoryName;
   Subcategory
-    .findByIdAndUpdate(req.params.subcategoryID, {name: newName}, {new: true})
+    .findByIdAndUpdate(req.params.subcategoryID, { name: newName }, { new: true })
     .then(result => res.redirect("/app/admin/" + category))
     .catch(err => console.log(err))
 }
@@ -124,23 +49,23 @@ exports.deleteSubcategory = (req, res, next) => {
       console.log(err)
     }
     Post.deleteMany({ _id: { $in: result.posts } }, (err) => {
-      if(err){
+      if (err) {
         console.log(err)
       }
       Category.findByIdAndUpdate(req.params.categoryID,
         { $pull: { subcategory: req.params.subcategoryID } },
         { new: true }, (err, updatedCategory) => {
-          if(err){
+          if (err) {
             console.log(err)
           }
-          Category.findByIdAndUpdate(req.params.categoryID, 
+          Category.findByIdAndUpdate(req.params.categoryID,
             { $pull: { subcategoryPosts: { $in: result.posts } } },
-             { new:true }, (err, updatedCategory) => {
-               if(err){
-                 console.log(err)
-               }
-               res.redirect("/app/admin/" + req.params.categoryID);
-             })
+            { new: true }, (err, updatedCategory) => {
+              if (err) {
+                console.log(err)
+              }
+              res.redirect("/app/admin/" + req.params.categoryID);
+            })
         })
     })
   })
@@ -151,7 +76,7 @@ exports.deleteSubcategory = (req, res, next) => {
 exports.getNewPostForm = (req, res, next) => {
   const category = req.params.categoryID;
   const subcategory = req.params.subcategoryID;
-  res.render("./admin/newPost", {category: category, subcategory: subcategory});
+  res.render("./admin/newPost", { category: category, subcategory: subcategory });
 }
 
 exports.postNewPost = (req, res, next) => {
@@ -200,7 +125,7 @@ exports.getEditPostForm = (req, res, next) => {
     .then(result => res.render("./admin/editPost", {
       post: result,
       categoryID: categoryID,
-      subcategoryID: subcategoryID      
+      subcategoryID: subcategoryID
     }))
     .catch(err => console.log(err))
 }
@@ -240,75 +165,5 @@ exports.deletePost = (req, res, next) => {
                   res.redirect("/app/admin/" + req.params.categoryID + "/subcategory/" + req.params.subcategoryID);
                 })
           })
-    })
-}
-
-// Categories Post Routes Controllers
-
-exports.getNewCatPostForm = (req, res, next) => {
-  Category  
-    .findById(req.params.categoryID)
-    .then(result => {
-      res.render("./admin/newCatPost", {
-        category: result,
-      });
-    })  
-}
-
-exports.postNewCatPost = (req, res, next) => {
-  const post = new Post({
-    title: req.body.title,
-    content: req.body.content,
-    imageURL: req.body.imageURL
-  })
-  Category
-    .findById(req.params.categoryID)
-    .then(category => {
-      post.save();
-      category.posts.push(post); 
-      category.save();     
-      res.redirect("/app/admin/" + req.params.categoryID);
-    })
-    .catch(err => console.log(err));
-}
-
-exports.getSingleCatPost = (req, res, next) => {
-  Post  
-    .findById(req.params.postID)
-    .then(result => res.render("admin/showCatPost", {post: result, categoryID: req.params.categoryID}));
-}
-
-exports.getEditCatPostForm = (req, res, next) => {
-  Post  
-    .findById(req.params.postID)
-    .then(result => res.render("admin/editCatPost", {
-      post: result,
-      categoryID: req.params.categoryID, 
-      postID: req.params.postID
-    }))
-}
-
-exports.editCatPost = (req, res, next) => {
-  Post
-    .findByIdAndUpdate(req.params.postID, req.body, { new: true })
-    .then(result => res.redirect("/app/admin/" + req.params.categoryID + "/" + req.params.postID))
-    .catch(err => console.log(err));
-}
-
-exports.deleteCatPost = (req, res, next) => {
-  Post
-    .findByIdAndRemove(req.params.postID, (err, result) => {
-      if(err) {
-        console.log(err)
-      }
-      Category
-        .findByIdAndUpdate(req.params.categoryID, 
-        { $pull: { posts: req.params.postID } },
-        { new: true }, (err, updatedCategory) => {
-          if(err){
-            console.log(err);
-          }
-          res.redirect("/app/admin/" + req.params.categoryID);
-        })
     })
 }

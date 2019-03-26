@@ -15,9 +15,13 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const adminRoutes = require("./routes/adminRoutes");
+const categoryRoutes = require("./routes/adminRoutes/categoryRoutes");
+const subcategoryRoutes = require("./routes/adminRoutes/subcategoryRoutes");
+//const adminRoutes = require("./routes/adminRoutes");
 
-app.use('/app/admin', adminRoutes);
+app.use("/app/admin", categoryRoutes);
+app.use("/app/admin", subcategoryRoutes);
+//app.use('/app/admin', adminRoutes);
 
 
 app.get("/", (req, res, next) => {
