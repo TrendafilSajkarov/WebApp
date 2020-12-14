@@ -34,7 +34,7 @@ app.use("/", (req, res, next) => {
 
 
 mongoose
-  .connect("mongodb+srv://trendafil2:databaza0@project0-gz2vh.mongodb.net/test?retryWrites=true", 
+  .connect("mongodb+srv://-gz2vh.mongodb.net/test?retryWrites=true", 
     { useNewUrlParser: true })
   .then(result => {
     app.listen(3000, (req, res) => {
